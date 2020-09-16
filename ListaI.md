@@ -12,15 +12,37 @@
 
 ### c) O que é propriedade dinâmica e propriedade estática de um objeto? Dê exemplos concretos
 
+
+
 ### d) O que é encapsulamento? Por que ele é importante na Programação Orientada a Objetos?
+
+> Encapsulamento é uma forma de privar o acesso a certas variáveis e métodos de uma classe. Ele é importante para esconder certas habilidades dos usuários e para dar uma maior robustez ao código.
 
 ### e) Para que serve o estado de um objeto? E o comportamento de um objeto?
 
+> O estado corresponde as variáveis de um objeto (os atributos), responsáveis por armazenar informação desses objetos, ao passo que o comportamento define o que o objeto pode fazer (são os métodos).
+
 ### f) De que forma implementamos o estado e o comportamento de um objeto? Dê exemplos usando código
+```python
+class surfer():
+  def __init__():
+    self.board = "fishboard"
+    self.size = "6.10"
+    self.is_broken = False
+   
+   def change_board(board, size):
+    self.board = board
+    self.size = size
+   
+   def break_board():
+    self.is_broken = True
+```
+
+> No caso acima, quando criado um objeto apartir dessa classe, o estado seria *board, size e is_broken*, ao passo que os comportamentos seriam change_board e break_board.
 
 ### g) O que é uma referência para um objeto?
 
-### h) O que acontece quando atribuímos uma referência para um objeto a uma outrareferência?
+### h) O que acontece quando atribuímos uma referência para um objeto a uma outra referência?
 
 ### i) O que é uma classe? Paraque serve uma classe? Cite um exemplo em código.
 
