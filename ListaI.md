@@ -12,7 +12,7 @@
 
 ### c) O que é propriedade dinâmica e propriedade estática de um objeto? Dê exemplos concretos
 
-
+> não consegui responder a tempo
 
 ### d) O que é encapsulamento? Por que ele é importante na Programação Orientada a Objetos?
 
@@ -42,9 +42,17 @@ class surfer():
 
 ### g) O que é uma referência para um objeto?
 
+> Tudo em python é referência, mas em C++ uma referência a um objeto seria passar o endereço de memória dele para uma outra variável.
+
 ### h) O que acontece quando atribuímos uma referência para um objeto a uma outra referência?
 
 ### i) O que é uma classe? Paraque serve uma classe? Cite um exemplo em código.
+
+> Uma classe é um *blueprint* para os objetos. a classe surfer abordada em cima serve como molde para criação de objetos.
+```Python
+john = surfer()
+jonh.change_board("pranchinha", "5.11")
+```
 
 ### j) Explique com suas palavras o significado de uma variável de classe e uma variável de instancia. Sabemos que uma mesma classe pode possuir vários métodos (ou construtores) com o mesmo nome. Qual o nome dado a esta situação? Neste caso, como Java consegue distinguir um método(ou construtor) de outro? (use um exemplo para explicar melhor).
 
