@@ -54,7 +54,11 @@ class surfer():
 
 ### m) Qual a diferença entre a classe Exception e Error?
 
-### n) Explique a utilização dos comandos try-catch, throw, throws e finally
+> Um erro é um problema que uma aplicação não deve tratar e é algo que deve ser consertado. Uma exceção é uma condição que uma aplicação queira tratar para continuar a execução normal do programa.
+
+### n) Explique a utilização dos comandos try-catch, throw
+
+> Try catch é utilizado para tratamento de exceções. Se houver uma exceção dentro do bloco, a execução dentro do bloco try terminará e o erro será tratado no catch e a execução do programa continuará normalmente. O throw é utilizado para lançar exceções quando algo fora do comum ocorrer no programa.
 
 ## Questão 2
 
