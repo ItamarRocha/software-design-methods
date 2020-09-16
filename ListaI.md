@@ -4,7 +4,11 @@
 
 ### a) Explique com suas palavras uma vantagem da POO sobre a Programação Estruturada
 
+> POO tem a vantagem de possibilitar uma organização melhor do código, com reaproveitamento dele através de classes e herança.
+
 ### b) O que é um objeto?
+
+> são instâncias geradas a partir de moldes chamados classes, possuindo estrutura baseada nesse *blueprint*. Objetos podem apresentar atributos e métodos.
 
 ### c) O que é propriedade dinâmica e propriedade estática de um objeto? Dê exemplos concretos
 
