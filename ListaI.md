@@ -42,9 +42,11 @@ class surfer():
 
 ### g) O que é uma referência para um objeto?
 
-> Tudo em python é referência, mas em C++ uma referência a um objeto seria passar o endereço de memória dele para uma outra variável.
+> Tudo em python é passado por referência, uma referência é o endereço desse objeto na memória.
 
 ### h) O que acontece quando atribuímos uma referência para um objeto a uma outra referência?
+
+> não consegui responder a tempo
 
 ### i) O que é uma classe? Paraque serve uma classe? Cite um exemplo em código.
 
@@ -56,9 +58,16 @@ jonh.change_board("pranchinha", "5.11")
 
 ### j) Explique com suas palavras o significado de uma variável de classe e uma variável de instancia. Sabemos que uma mesma classe pode possuir vários métodos (ou construtores) com o mesmo nome. Qual o nome dado a esta situação? Neste caso, como Java consegue distinguir um método(ou construtor) de outro? (use um exemplo para explicar melhor).
 
+> não consegui responder a tempo
+
 ### k) Qual é a diferença entre this, super, this() e super()?
 
+> o self em python seria equivalente ao this em C++. O self é uma referência à instância da classe e é usado pra acessar as variáveis que pertencem a classe.
+> a função super é usada para dar acesso aos métodos e variáveis de uma classe, por meio de herança. Ele retorna um objeto que representa a classe pai.
+
 ### l) Quais são os três tipo de erros de execução que um programa pode gerar? Quais podemos tratar com exceções?
+
+> não consegui responder a tempo
 
 ### m) Qual a diferença entre a classe Exception e Error?
 
@@ -70,4 +79,52 @@ jonh.change_board("pranchinha", "5.11")
 
 ## Questão 2
 
-Selecione 2 (dois) pacotes vistos na disciplina anterior de Java ou outro projeto de software O.O que você conhece para escolher 3 (três) classes para descrever (nome da classe, o que  a  classe  faz,  construtores,  principais  métodos,  atributos,  relacionamento  de  herança  com outras classese que interfaces implementam a classe).
+Selecione 2 (dois) pacotes vistos na disciplina anterior de Java ou outro projeto de software O.O que você conhece para escolher 3 (três) classes para descrever (nome da classe, o que  a  classe  faz,  construtores,  principais  métodos,  atributos,  relacionamento  de  herança  com outras classes e que interfaces implementam a classe).
+
+1. https://keras.io/api/models/sequential/
+  > Se resume a uma classe que permite a criação de modelos de Redes neurais de camada por camada.
+  ```python
+  import tensorflow as tf
+  model = tf.keras.Sequential()
+  model.add(tf.keras.layers.Dense(1))
+  ```
+  > Os principais métodos da classe são:
+  * .add() que adiciona uma camada ao modelo
+  * .compile() que compila o modelo
+  * .build() responsável por construir o modelo
+  * .summary() retorna uma tabela com a distribuição
+  
+  > Principais atributos
+  * .layers retorna a lista
+
+2. https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html
+
+  > se resume a uma classe que retorna uma estrutura de dados.
+  ```python
+  import pandas as pd
+  dataset = pd.read_csv("dados.csv")
+  print(dataset.head())
+  ```
+  
+  > principais métodos:
+  * .head() - retorna as 5 primeiras fileiras
+  * .tail() - retorna as 5 últimas fileiras
+  
+  > principais atributos:
+  * .columns - retorna os nomes das colunas
+  * .rows - retorna os indices das linhas
+
+3. https://keras.io/api/models/model/
+
+  > *blueprint* para criação de modelos do keras
+  ```python
+  import tensorflow as tf
+  inputs = tf.keras.Input(shape=(3,))
+  x = tf.keras.layers.Dense(4, activation=tf.nn.relu)(inputs)
+  outputs = tf.keras.layers.Dense(5, activation=tf.nn.softmax)(x)
+  model = tf.keras.Model(inputs=inputs, outputs=outputs)
+  ```
+  
+  > principais métodos:
+  * .summary() retorna o sumário das redes
+  * .get_layer retorna a rede
