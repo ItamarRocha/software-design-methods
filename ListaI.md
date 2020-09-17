@@ -12,7 +12,15 @@
 
 ### c) O que é propriedade dinâmica e propriedade estática de um objeto? Dê exemplos concretos
 
-> não consegui responder a tempo
+> propriedade dinâmica pode ser alterada ao passo que a estática é algo fixo.
+```C++
+int main
+{
+    const int a = 10;
+    const int b = a + 10; //funciona ok 
+    i++;    // erro de compilação 
+}
+```
 
 ### d) O que é encapsulamento? Por que ele é importante na Programação Orientada a Objetos?
 
@@ -58,7 +66,17 @@ jonh.change_board("pranchinha", "5.11")
 
 ### j) Explique com suas palavras o significado de uma variável de classe e uma variável de instancia. Sabemos que uma mesma classe pode possuir vários métodos (ou construtores) com o mesmo nome. Qual o nome dado a esta situação? Neste caso, como Java consegue distinguir um método(ou construtor) de outro? (use um exemplo para explicar melhor).
 
-> não consegui responder a tempo
+> A variável de classe pertence à classe ao passo que a de instância é parte do objeto. Se uma mudança for feita em uma variável de classe, essa mesma mudança será percebida por todos os objetos feitos a partir dela. Overloading (sobrecarga) de classe/método. É possível distinguir um construtor de outro pois eles devem ter parâmetros diferentes, para o caso de métodos, são distinguíveis por ter parâmetros ou tipos diferentes. Não podem ser iguais.
+
+```C++
+int rotate(){
+  return 90;
+}
+
+int rotate(int number){
+  return 90 + number;
+}
+```
 
 ### k) Qual é a diferença entre this, super, this() e super()?
 
