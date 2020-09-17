@@ -46,7 +46,7 @@ class surfer():
 
 ### h) O que acontece quando atribuímos uma referência para um objeto a uma outra referência?
 
-> não consegui responder a tempo
+> Quando atribuímos uma referência para um objeto a uma outra referência, substituimos o valor antigo da referência, que passa a apontar para a referência do objeto.
 
 ### i) O que é uma classe? Paraque serve uma classe? Cite um exemplo em código.
 
@@ -67,7 +67,7 @@ jonh.change_board("pranchinha", "5.11")
 
 ### l) Quais são os três tipo de erros de execução que um programa pode gerar? Quais podemos tratar com exceções?
 
-> não consegui responder a tempo
+> runtime, Aritmético, resources. Todos eles.
 
 ### m) Qual a diferença entre a classe Exception e Error?
 
@@ -127,4 +127,4 @@ Selecione 2 (dois) pacotes vistos na disciplina anterior de Java ou outro projet
   
   > principais métodos:
   * .summary() retorna o sumário das redes
-  * .get_layer retorna a rede
+  * .get_layer() retorna a rede
