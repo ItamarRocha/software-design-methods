@@ -10,7 +10,7 @@ Ex do que seria não utilizar o SRP:
 class Order
 {
     public function calculateTotalSum(){/*...*/}
-    public function getItems(){/*...*/}
+    public function getItems(){/*...*/}xx
     public function getItemCount(){/*...*/}
     public function addItem($item){/*...*/}
     public function deleteItem($item){/*...*/}
@@ -175,6 +175,42 @@ class FolhaDePagamento
 
 ## Liskov Substitution Principle
 Uma classe derivada deve ser substituível por sua classe base.
+
+se S é um subtipo de T, então os objetos do tipo T, em um programa, podem ser substituídos pelos objetos de tipo S sem que seja necessário alterar as propriedades deste programa.
+
+```php
+class A 
+{
+    public function getNome()
+    {
+        echo 'Meu nome é A';
+    }
+}
+
+class B extends A 
+{ 
+    public function getNome()
+    {
+        echo 'Meu nome é B';
+    }
+}
+
+$objeto1 = new A;
+$objeto2 = new B;
+
+function imprimeNome(A $objeto)
+{
+    return $objeto->getNome();
+}
+
+imprimeNome($objeto1); // Meu nome é A
+imprimeNome($objeto2); // Meu nome é B
+```
+
+Violação do Liskov Substitution Principle
+* Sobrescrever/implementar um método que não faz nada
+* Lançar uma exceção inesperada
+* Retornar valores de tipos diferentes da classe base
 
 ## Interface Segregation Principle
 
