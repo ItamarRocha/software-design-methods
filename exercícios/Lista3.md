@@ -240,3 +240,21 @@ Problemas:
 Problemas:
 1. Violação Open Closed Principle.
     * Neste caso, se quiséssemos adicionar alguma variável teríamos que modificar a função saudar. Uma possível solução seria criar uma interface para formalidade e classes criadas para cada formalidade a partir dessa interface, que seriam passadas como parâmetro pela função saudar, que executaria uma função saudar. Assim, só precisaríamos extender o código caso quiséssemos adicionar alguma saudação/formalidade e não mais modificar o já existente.
+
+### Apartamento
+
+Problemas:
+1. Violação Open Closed Principle.
+    * Os valores de número de quartos na cobertura estão setados no código. Além disso, o upgrade do apartamento está fixado em 40 e o numero de quartos em 1. Esses valores deveriam ser passados como parâmetro. Do contrário, precisaríamos mudar o código caso quiséssemos colocar valores diferentes.
+2. Violação Dependency Inversion Principle
+    * Um modelo de alto nível não deve depender de um de baixo nível. Ambos devem depender da abstração. Isso é violado na classe UpgradeApartemento, que precisa da existência da Studio.class
+
+### Ave
+
+Problemas:
+1. Violação Liskov Substitution Problem
+    * Lança uma exceção inesperada na função voa()
+2. Violação Interface Segregation Problem
+    * Há a implementação de uma função que não faz nada na classe pinguim (a função voa). O **ISP** diz que uma classe não deve ser forçada a implementar interfaces e métodos que não irão utilizar. Uma possível solução seria criar uma interface que extende aves, mas se chama avesQueVoam. Assim, deixaríamos a interface Ave apenas com o método trocaplumagem() e a interface avesQueVoam teria o método voa().
+    
+### 
