@@ -224,3 +224,19 @@ Ex: Ave penguim voar
 ## Referências
 
 https://medium.com/desenvolvendo-com-paixao/o-que-%C3%A9-solid-o-guia-completo-para-voc%C3%AA-entender-os-5-princ%C3%ADpios-da-poo-2b937b3fc530
+
+## Lista 3
+
+### Jogo da velha [Tabuleiro.java]
+
+Problemas:
+1. Violação do Single Responsibility Principle.
+    * A classe Tabuleiro é responsável por diversas coisas. Poderíamos separar em classes diferentes. Uma responsável pela construção do tabuleiro, uma para checar quem ganhou e outra para mostrar os resultados. Além disso, poderíamos enxugar o pouco o código com coisas que não são importantes.
+2. Violação do Open Closed Principle.
+    * Neste caso, precisaríamos fazer modificações no código atual ao invés de extensões no caso da checagem do vencedor, o que vai contra o OCP. Como estão faltando algumas checagens para determinar o vencedor, teríamos que adicionar ao if mais condições.
+ 
+### Saudação [Saudacao.java]
+
+Problemas:
+1. Violação Open Closed Principle.
+    * Neste caso, se quiséssemos adicionar alguma variável teríamos que modificar a função saudar. Uma possível solução seria criar uma interface para formalidade e classes criadas para cada formalidade a partir dessa interface, que seriam passadas como parâmetro pela função saudar, que executaria uma função saudar. Assim, só precisaríamos extender o código caso quiséssemos adicionar alguma saudação/formalidade e não mais modificar o já existente.
