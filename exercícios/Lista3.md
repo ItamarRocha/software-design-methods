@@ -257,4 +257,10 @@ Problemas:
 2. Violação Interface Segregation Problem
     * Há a implementação de uma função que não faz nada na classe pinguim (a função voa). O **ISP** diz que uma classe não deve ser forçada a implementar interfaces e métodos que não irão utilizar. Uma possível solução seria criar uma interface que extende aves, mas se chama avesQueVoam. Assim, deixaríamos a interface Ave apenas com o método trocaplumagem() e a interface avesQueVoam teria o método voa().
     
-### 
+### Clima Tracker
+
+Problemas:
+1. Violação Single Responsibility Principle
+    * A classe ClimaTracker possui o método setCondicaoAtual, que é responsável por mais de uma tarefa distinta. Além de setar a condição ele também informa aos clientes o alerta do clima, o que deveria ser feito em outra função.
+2. Violação Open Closed Principle
+    * Deveria haver uma implementação de uma interface comunicação para que as classes emailCLiente e Phone pudessem ser feitas a partir dela. Assim, poderíamos passar a comunicação escolhida sem a necessidade de alterações no código (caso algum novo meio de comunicação fosse adicionado).
