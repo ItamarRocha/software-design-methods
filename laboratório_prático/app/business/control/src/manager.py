@@ -14,20 +14,18 @@ class Manager:
             self.users = {}
         else:
             self.users = self.persistence.load()
-            print(type(self.users))
-            print(self.users)
-            print(self.users['jp'].getPassword())
 
     def add(self, login, password):
-        error =  False     
-
-        if(self.users[login] != None):
+        error =  False
+    
+        if(login in self.users):
             error = True
             raise LoginException("Usuário Existente")
 
         if(len(login) <= 0):
             error = True
             raise LoginException("Campo login não pode ser vazio")
+
 
         if(len(login) > 20):
             error = True

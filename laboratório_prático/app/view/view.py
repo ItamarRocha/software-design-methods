@@ -111,6 +111,7 @@ class View:
                     error = True
                     st.warning(e)
 
+                    
                 if error == False:
                     st.success("Você criou sua conta!")
 
