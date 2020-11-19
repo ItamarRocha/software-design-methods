@@ -1,18 +1,23 @@
 import streamlit as st
 from PIL import Image
+from business.control.src.manager import Manager
+from business.model.user import User
 
-def main():
-    st.title("Trabalho 1 MPS")
 
-    choice = st.sidebar.selectbox("Menu", ["Landing", "Login", "Register"])
 
-    if choice == "Landing":
+class View:
+    def __init__(self):
+        self.manager = Manager(users=1)
+
+
+    def landing_page(self):
+
         st.markdown(r"""
-                    ### Bem-vindx!
-                    Bem-vindx à nossa aplicação para a disciplina métodos de projeto de software.
+                        ### Bem-vindx!
+                        Bem-vindx à nossa aplicação para a disciplina métodos de projeto de software.
 
-                    Nessa aplicação fizemos uma breve implementação do trabalho passado pelo professor Raoni, com o intuito de podermos integrar nosso projeto com uma interface. Você pode se Registrar clicando na aba ao lado. Obrigado pelo seu tempo!
-                    """)
+                        Nessa aplicação fizemos uma breve implementação do trabalho passado pelo professor Raoni, com o intuito de podermos integrar nosso projeto com uma interface. Você pode se Registrar clicando na aba ao lado. Obrigado pelo seu tempo!
+                        """)
 
         st.subheader("Metodologia")
         # Texto com Metodologia utilizada no trabalho
@@ -28,12 +33,12 @@ def main():
 
         author_1, author_2, author_3, author_4, author_5, author_6 = st.beta_columns(6)
 
-        jp = Image.open('../../imgs/jp.png')
-        jw = Image.open('../../imgs/wallace.png')
-        ita = Image.open('../../imgs/itamar.png')
-        caio = Image.open('../../imgs/caio.jpeg')
-        sarah = Image.open('../../imgs/sarah.jpeg')
-        claudio = Image.open('../../imgs/claudio.png')
+        jp = Image.open('assets/jp.png')
+        jw = Image.open('assets/wallace.png')
+        ita = Image.open('assets/itamar.png')
+        caio = Image.open('assets/caio.jpeg')
+        sarah = Image.open('assets/sarah.jpeg')
+        claudio = Image.open('assets/claudio.png')
 
 
         with author_1:
@@ -66,35 +71,64 @@ def main():
             st.image(sarah, use_column_width=True)
             st.markdown('Github: **[SarahToscano](https://github.com/SarahToscano)**')
 
+    def login_page(self):
 
-
-    elif choice == "Login":
         st.subheader("Login Section")
 
         user = st.text_input("User Name")
         password = st.text_input("Password",type='password')
         
-        if st.button("Login"):			
-            result = True#login_user tenta logar o cara
-            if result:
-                st.success("Logado com sucesso")
-            else:
-                st.warning("Senha ou usuários incorretos")
+        if st.button("Login"):
 
-    elif choice == "Register":
+            try:
+
+                if (self.manager.users[user].getPassword() == password) and (self.manager.users[user].getLogin() == user):
+                    st.success("Logado com sucesso")
+                else:
+                    st.warning("Senha ou usuários incorretos")
+
+            except Exception as e:
+                st.warning(f"{e}: Usuário não existente")
+
+    def register_page(self):
+
         st.subheader("Register")
 
         user = st.text_input("Digite seu nome de usuário")
         password = st.text_input("Digite sua senha", type="password")
         password2 = st.text_input("Confirme sua senha", type="password")
-		
+        
         if st.button("Me registre!"):
-            # faz a checagem se pode ter a senha nessa forma e se o usuário ta disponível
+            if password != password2:
+                st.warning("As duas senhas fornecidas não são idênticas")
+            
+            else:
 
-            # vê se as duas senhas batem
+                try:
+                    error = self.manager.add(user, password)
 
-            # registra
-            st.success("Você criou sua conta!")
+                except Exception as e:
+                    error = True
+                    st.warning(e)
 
-if __name__ == '__main__':
-	main()
+                if error == False:
+                    st.success("Você criou sua conta!")
+
+    
+    def main_menu(self):
+        st.title("Trabalho 1 MPS")
+
+        choice = st.sidebar.selectbox("Menu", ["Landing", "Login", "Register"])
+
+        if choice == "Landing":
+            
+            self.landing_page()
+
+
+        elif choice == "Login":
+            
+            self.login_page()
+
+        elif choice == "Register":
+            
+            self.register_page()

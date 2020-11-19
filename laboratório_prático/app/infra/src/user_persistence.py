@@ -1,4 +1,4 @@
-from ...business.model.src.user import User
+from business.model.user import User
 from ..exceptions.SaveException import SaveException
 from ..exceptions.LoadException import LoadException
 
