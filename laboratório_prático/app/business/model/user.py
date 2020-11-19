@@ -12,11 +12,11 @@ class User:
     
     def getPassword(self):
 
-        return self.__login
+        return self.__password
 
     def setLogin(self,login):
 
-        self.__login = login;
+        self.__login = login
 
     def setPassword(self, password):
 
