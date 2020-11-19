@@ -6,19 +6,19 @@ class User:
         self.__password = password
 
     
-    def getLogin():
+    def getLogin(self):
 
         return self.__login
     
-    def getPassword():
+    def getPassword(self):
 
         return self.__login
 
-    def setLogin(login):
+    def setLogin(self,login):
 
         self.__login = login;
 
-    def setPassword(password):
+    def setPassword(self, password):
 
         self.__password = password
 
