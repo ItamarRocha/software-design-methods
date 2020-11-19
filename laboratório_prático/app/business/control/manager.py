@@ -2,8 +2,8 @@ from ..model.user import User
 import re
 
 class Manager:
-    def __init__(self):     #conferir
-        self.Users = {}
+    def __init__(self):
+        self.__users = {}
 
     def add(self, login, password):     
         try:
@@ -32,4 +32,15 @@ class Manager:
 
         except Exception as e: print(e)
 
-        self.Users[login] = User(login, password)    #conferir
+        self.__users[login] = User(login, password)
+
+
+    def remove(self, login):
+
+        try:
+
+            del self.__users[login]
+
+        except Exception as e:
+            print(e)
+            
