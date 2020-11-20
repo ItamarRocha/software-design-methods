@@ -182,9 +182,11 @@ class View:
             if st.button("Por ordem alfabética", 1):
         
                 list = self.manager.list_by_alphabet()
-        
-                for i in list:
-                    st.markdown(i)
+                if(len(list)):
+                    for i in list:
+                        st.markdown(i)
+                else:
+                    st.error("Nenhum membro encontrado")
         
             if st.button("Data de nascimento", 2):
         
