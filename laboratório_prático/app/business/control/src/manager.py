@@ -79,5 +79,5 @@ class Manager:
     def list_by_alphabet(self):
         list = []
         list= sorted(self.users.keys(), key=str.lower)
-        
+    
         return list
