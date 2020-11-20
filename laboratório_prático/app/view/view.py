@@ -2,12 +2,12 @@ import streamlit as st
 from PIL import Image
 from business.control.src.manager import Manager
 from business.model.user import User
-import time
+
+
 
 class View:
     def __init__(self):
         self.manager = Manager(users=1)
-        self.options = ["Landing", "Login", "Register"]
 
 
     def landing_page(self):
@@ -72,40 +72,23 @@ class View:
             st.markdown('Github: **[SarahToscano](https://github.com/SarahToscano)**')
 
     def login_page(self):
-        placeholder = st.empty()
-        self.logged = False
-        with placeholder.beta_container():
-            st.subheader("Login Section")
 
-            user = st.text_input("User Name")
-            password = st.text_input("Password",type='password')
-            
-            if st.button("Login"):
+        st.subheader("Login Section")
 
-                try:
+        user = st.text_input("User Name")
+        password = st.text_input("Password",type='password')
+        
+        if st.button("Login"):
 
-                    if (self.manager.users[user].getPassword() == password) and (self.manager.users[user].getLogin() == user):
-                        
-                        self.user = user
+            try:
 
-                        st.success("Logado com sucesso")
-                        st.balloons()
-                        time.sleep(1)
-                        
-                        self.logged = True
+                if (self.manager.users[user].getPassword() == password) and (self.manager.users[user].getLogin() == user):
+                    st.success("Logado com sucesso")
+                else:
+                    st.warning("Senha ou usuários incorretos")
 
-                        placeholder.empty()
-
-                    else:
-                        st.warning("Senha ou usuários incorretos")
-
-                except Exception as e:
-                    st.warning(f"{e}: Usuário não existente")
-
-        if self.logged:
-            st.write(self.user)
-            self.logged_page()
-            st.write("opa")
+            except Exception as e:
+                st.warning(f"{e}: Usuário não existente")
 
     def register_page(self):
 
@@ -132,28 +115,34 @@ class View:
                 if error == False:
                     st.success("Você criou sua conta!")
 
-    def logged_page(self):
-        st.subheader("Você está logado!")
-
-        st.write(f"Bem vinde {self.user}. Você deseja deletar sua conta?")
-
-        if st.button("SIM, Quero deletar minha conta!!"):
-            self.manager.remove(self.user)
-
-
+ 
+    def member_list_page(self):
+        st.subheader("Lista de membros")
+        if st.button("Por ordem alfabética", 1):
+            list = self.manager.list_by_alphabet()
+            for i in list:
+                st.markdown(i)
+        if st.button("Data de nascimento", 2):
+            st.error("Em breve")
+    
     def main_menu(self):
         st.title("Trabalho 1 MPS")
 
-        choice = st.sidebar.selectbox("Menu", self.options)
+        choice = st.sidebar.selectbox("Menu", ["Landing", "Login", "Register", "Lista de membros"])
 
         if choice == "Landing":
-
+            
             self.landing_page()
 
-        elif choice == "Login":
 
+        elif choice == "Login":
+            
             self.login_page()
 
         elif choice == "Register":
             
             self.register_page()
+
+        elif choice == "Lista de membros":
+
+            self.member_list_page()
