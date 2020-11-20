@@ -17,6 +17,11 @@ class Manager:
 
     def add(self, login, password):
         error =  False
+
+        if(re.search("\d", login)):
+            error = True
+            raise LoginException("Campo login não pode ter números")
+       
     
         if(login in self.users):
             error = True
@@ -31,9 +36,8 @@ class Manager:
             error = True
             raise LoginException("Campo login suporta no máximo 20 caracteres")
 
-        if(re.search("\d", login)):
-            error = True
-            raise LoginException("Campo login não pode ter números")
+        
+
 
 
         if(len(password) < 8):
@@ -74,6 +78,6 @@ class Manager:
 
     def list_by_alphabet(self):
         list = []
-        for i in sorted(self.users.keys()):
-            list.append(i)
+        list= sorted(self.users.keys(), key=str.lower)
+        
         return list
