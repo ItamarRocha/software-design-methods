@@ -69,4 +69,11 @@ class Manager:
         except DeleteException as e:
             print(e)
 
-        self.persistence.save(self.users)            
+        self.persistence.save(self.users)        
+
+
+    def list_by_alphabet(self):
+        list = []
+        for i in sorted(self.users.keys()):
+            list.append(i)
+        return list
