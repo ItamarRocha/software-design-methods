@@ -36,10 +36,6 @@ class Manager:
             error = True
             raise LoginException("Campo login suporta no máximo 20 caracteres")
 
-        
-
-
-
         if(len(password) < 8):
             error = True
             raise PasswordException("Campo de senha deve ter no mínimo 8 caracteres")
@@ -79,5 +75,4 @@ class Manager:
     def list_by_alphabet(self):
         list = []
         list= sorted(self.users.keys(), key=str.lower)
-    
         return list

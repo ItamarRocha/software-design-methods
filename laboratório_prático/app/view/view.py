@@ -152,19 +152,25 @@ class View:
                 st.write(f"Bem vinde {self.user}. Suas opções estão abaixo!")
 
                 if st.button("Quero deslogar"):
+                    
+                    st.warning("Você deslogou!")
+                    time.sleep(1)
                     self.user = None
                     self.logged = False
+                    
                     placeholder.empty()
+
 
                     return True
 
                 if st.button("Quero deletar minha conta!!"):
 
+                    st.warning("Você deletou sua conta :(")
+                    time.sleep(1)
+                    placeholder.empty()
                     self.manager.remove(self.user)
-                    
                     self.user = None
                     self.logged = False
-                    placeholder.empty()
                     
                     return True
 
@@ -220,4 +226,4 @@ class View:
         elif choice == "User page":
 
             if self.user_page():
-                st.write("Você deslogou com sucesso!\nVá para a barra lateral para acessar outras configurações!")
+                st.write("Você saiu do nosso sistema!\nVá para a barra lateral para acessar outras configurações!")
