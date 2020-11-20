@@ -2,13 +2,14 @@ import streamlit as st
 from PIL import Image
 from business.control.src.manager import Manager
 from business.model.user import User
+import time
 
-
-
+@st.cache(allow_output_mutation=True)
 class View:
     def __init__(self):
         self.manager = Manager(users=1)
-
+        self.logged = False
+        self.options = ["Landing", "Login", "Register", "User page", "Lista de membros"]
 
     def landing_page(self):
 
@@ -72,72 +73,139 @@ class View:
             st.markdown('Github: **[SarahToscano](https://github.com/SarahToscano)**')
 
     def login_page(self):
-
+        
         st.subheader("Login Section")
 
-        user = st.text_input("User Name")
-        password = st.text_input("Password",type='password')
-        
-        if st.button("Login"):
+        placeholder = st.empty()
 
-            try:
+        if not self.logged:
+            with placeholder.beta_container():
+                
+                user = st.text_input("User Name")
+                password = st.text_input("Password",type='password')
+                
+                if st.button("Login"):
 
-                if (self.manager.users[user].getPassword() == password) and (self.manager.users[user].getLogin() == user):
-                    st.success("Logado com sucesso")
-                else:
-                    st.warning("Senha ou usuários incorretos")
+                    try:
 
-            except Exception as e:
-                st.warning(f"{e}: Usuário não existente")
+                        if (self.manager.users[user].getPassword() == password) and (self.manager.users[user].getLogin() == user):
+                            
+                            self.user = user
+                            
+                            st.success("Logado com sucesso")
+                            st.balloons()
+                            time.sleep(1)
+                            
+                            self.logged = True
+
+                            placeholder.empty()
+
+                            return True
+
+                        else:
+                            st.warning("Senha ou usuários incorretos")
+                            return False
+
+                    except Exception as e:
+                        st.warning(f"{e}: Usuário não existente")
+                        return False
+        else:
+            st.write("Você já está logado!")
 
     def register_page(self):
 
         st.subheader("Register")
 
-        user = st.text_input("Digite seu nome de usuário")
-        password = st.text_input("Digite sua senha", type="password")
-        password2 = st.text_input("Confirme sua senha", type="password")
-        
-        if st.button("Me registre!"):
-            if password != password2:
-                st.warning("As duas senhas fornecidas não são idênticas")
+        if not self.logged:
+            user = st.text_input("Digite seu nome de usuário")
+            password = st.text_input("Digite sua senha", type="password")
+            password2 = st.text_input("Confirme sua senha", type="password")
             
-            else:
+            if st.button("Me registre!"):
+                if password != password2:
+                    st.warning("As duas senhas fornecidas não são idênticas")
+                
+                else:
 
-                try:
-                    error = self.manager.add(user, password)
+                    try:
+                        error = self.manager.add(user, password)
 
-                except Exception as e:
-                    error = True
-                    st.warning(e)
+                    except Exception as e:
+                        error = True
+                        st.warning(e)
 
+                        
+                    if error == False:
+                        st.success("Você criou sua conta!")
+        else:
+            st.write("Você já está logado!")
+
+    def user_page(self):
+
+        st.subheader("Área do usuário")
+
+        placeholder = st.empty()
+
+        if self.logged:
+            with placeholder.beta_container():
+            
+                st.write(f"Bem vinde {self.user}. Suas opções estão abaixo!")
+
+                if st.button("Quero deslogar"):
+                    self.user = None
+                    self.logged = False
+                    placeholder.empty()
+
+                    return True
+
+                if st.button("Quero deletar minha conta!!"):
+
+                    self.manager.remove(self.user)
                     
-                if error == False:
-                    st.success("Você criou sua conta!")
+                    self.user = None
+                    self.logged = False
+                    placeholder.empty()
+                    
+                    return True
 
- 
+        else:
+            st.error("Você não está logado")
+            return False
+
+        return False
+
     def member_list_page(self):
         st.subheader("Lista de membros")
-        if st.button("Por ordem alfabética", 1):
-            list = self.manager.list_by_alphabet()
-            for i in list:
-                st.markdown(i)
-        if st.button("Data de nascimento", 2):
-            st.error("Em breve")
-    
+        
+        if self.logged:
+        
+            if st.button("Por ordem alfabética", 1):
+        
+                list = self.manager.list_by_alphabet()
+        
+                for i in list:
+                    st.markdown(i)
+        
+            if st.button("Data de nascimento", 2):
+        
+                st.error("Em breve")
+        
+        else:
+
+            st.error("Você não está logado!")
     def main_menu(self):
         st.title("Trabalho 1 MPS")
 
-        choice = st.sidebar.selectbox("Menu", ["Landing", "Login", "Register", "Lista de membros"])
+        choice = st.sidebar.selectbox("Menu", self.options, index=0)
 
         if choice == "Landing":
             
             self.landing_page()
 
-
         elif choice == "Login":
             
-            self.login_page()
+            if self.login_page():
+                st.write("Você logou com sucesso!\nVá para a barra lateral para acessar outras configurações!")
 
         elif choice == "Register":
             
@@ -145,4 +213,9 @@ class View:
 
         elif choice == "Lista de membros":
 
-            self.member_list_page()
+                self.member_list_page()
+
+        elif choice == "User page":
+
+            if self.user_page():
+                st.write("Você deslogou com sucesso!\nVá para a barra lateral para acessar outras configurações!")
