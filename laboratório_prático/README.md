@@ -35,3 +35,15 @@
 
 5. Realize o tratamento de exceções em dois níveis: Capture as exceções java.io.IOException na camada "infra", relance-as para as camadas acima de modo que apresente uma mensagem para o usuário final amigável.
 
+**Continuação**
+
+Altere o item 5 do Laboratório Prático 1 para:
+
+ 
+
+1 - usar como coleção a classe TreeSet, para que o sistema tenha uma funcionaldade de LISTAR OS USUÁRIOS POR LOGIN EM ORDEM ALFABÉTICA CRESCENTE. Se estiver usando Java, utilize a abordagem java.lang.Comparable (ver exemplo: em https://www.guj.com.br/t/ordenar-um-hashmap-usando-o-compare-ou-compare-to/53198/9)
+
+ 
+
+2 - crie uma classe Data com os seguintes atributos dia, mês e ano todos do tipo int. A data deve ter o formato DD /MM /AAAA Altera a classe Usuario e adicione o atributo data_nascimento do tipo Data. Agora utilzando UMA TreeSet, implemente: EXIBIR USUÁRIOS ORDENADOS POR DATA DE NASCIMENTO DESCRESCENTE. Utilize a abordagem da interface java.lang.Comparator e crie uma classe ComparadorData que implementam essa interface e contenha o algoritmo de ordenação proposto.  
+
