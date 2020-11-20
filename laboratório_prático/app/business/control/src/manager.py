@@ -74,6 +74,6 @@ class Manager:
 
     def list_by_alphabet(self):
         list = []
-        for i in sorted(self.users.keys()):
+        for i in sorted(self.users.keys(), key=lambda x:x.lower()):
             list.append(i)
         return list
