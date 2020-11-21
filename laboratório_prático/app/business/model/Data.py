@@ -1,31 +1,15 @@
+from datetime import datetime, date
+
+
 class Data:
+    def __init__(self, dmy):
+        self.__dmy = dmy
 
-    def __init__(self, dd, mm, yyyy):
-
-        self.__dd = dd
-        self.__mm = mm
-        self.__yyyy = yyyy
-
-    def getDD(self):
-
-        return self.__dd
+    def getDMY(self):
+        return self.__dmy
     
-    def getMM(self):
+    def setDMY(self):
+        return self.__dmy
 
-        return self.__mm
-
-    def getYYYY(self):
-
-        return self.__yyyy
-
-    def setDD(self,dd):
-
-        self.__dd = dd
-
-    def setMM(self,mm):
-
-        self.__mm = mm
-
-    def setYYYY(self,yyyy):
-
-    self.__yyyy= yyyy
+    def converteData (self, dmy):
+        return datetime.strptime(dmy, "%d/%m/%Y")

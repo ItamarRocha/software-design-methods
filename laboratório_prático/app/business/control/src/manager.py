@@ -4,6 +4,7 @@ from ..exceptions.PasswordException import PasswordException
 from ..exceptions.DeleteException import DeleteException
 from infra.src.user_persistence import UserPersistence
 import re
+import datetime
 
 class Manager:
     def __init__(self, users = None):
@@ -15,7 +16,7 @@ class Manager:
         else:
             self.users = self.persistence.load()
 
-    def add(self, login, password):
+    def add(self, login, password, dataNascimento):
         error =  False
 
         if(re.search("\d", login)):
@@ -52,9 +53,8 @@ class Manager:
             error = True
             raise PasswordException("Campo de senha deve conter no mínimo 2 números")
 
-
         if error == False:
-            self.users[login] = User(login, password)
+            self.users[login] = User(login, password, dataNascimento)
             self.persistence.save(self.users)
 
         return error

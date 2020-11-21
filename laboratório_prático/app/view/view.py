@@ -118,6 +118,7 @@ class View:
 
         if not self.logged:
             user = st.text_input("Digite seu nome de usuário")
+            dataNascimento = st.text_input("Data do nascimento")
             password = st.text_input("Digite sua senha", type="password")
             password2 = st.text_input("Confirme sua senha", type="password")
             
@@ -128,7 +129,7 @@ class View:
                 else:
 
                     try:
-                        error = self.manager.add(user, password)
+                        error = self.manager.add(user, password,dataNascimento)
 
                     except Exception as e:
                         error = True
