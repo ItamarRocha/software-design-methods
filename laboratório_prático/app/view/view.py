@@ -150,7 +150,7 @@ class View:
         if self.logged:
             with placeholder.beta_container():
             
-                st.write(f"Bem vinde {self.user}. Suas opções estão abaixo!")
+                st.write(f"Bem vindo(a) {self.user}. Suas opções estão abaixo!")
 
                 if st.button("Quero deslogar"):
                     
@@ -196,8 +196,12 @@ class View:
                     st.error("Nenhum membro encontrado")
         
             if st.button("Data de nascimento", 2):
-        
-                st.error("Em breve")
+                list = self.manager.list_by_birth()
+                if(len(list)):
+                    for i in list:
+                        st.markdown(i)
+                else:
+                    st.error("Nenhum membro encontrado")
         
         else:
 
