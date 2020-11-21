@@ -80,6 +80,6 @@ class Manager:
     def list_by_birth(self):
         datetime_objs = []
         for date in self.users.keys():
-            datetime_objs.append(self.users[User].getDataNascimento)
+            datetime_objs.append(self.users[date].getDataNascimento)
         datetime_objs.sort(reverse=False)
         return datetime_objs

@@ -8,8 +8,8 @@ class Data:
     def getDMY(self):
         return self.__dmy
     
-    def setDMY(self):
-        return self.__dmy
+    def setDMY(self, dmy):
+        self.__dmy = dmy
 
     def converteData (self, dmy):
-        return datetime.strptime(dmy, "%d/%m/%Y")
+        return dmy

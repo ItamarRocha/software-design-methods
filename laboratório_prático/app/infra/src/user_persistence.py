@@ -11,14 +11,14 @@ class UserPersistence:
 
         try:
             with open(self.path,"wb") as f:
-                for login, user, dataNascimento in users.items():
+                for login, user in users.items():
                     f.write(login.encode(self.encoding))
                     f.write("\t".encode(self.encoding))
 
                     f.write(user.getPassword().encode(self.encoding))
-                    f.write("\n".encode(self.encoding))
+                    f.write("\t".encode(self.encoding))
 
-                    f.write(dataNascimento.getDataNascimento().encode(self.encoding))
+                    f.write(user.getDataNascimento().encode(self.encoding))
                     f.write("\n".encode(self.encoding))
 
         except:
