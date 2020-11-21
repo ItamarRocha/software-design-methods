@@ -80,6 +80,17 @@ class Manager:
     def list_by_birth(self):
         datetime_objs = []
         for date in self.users.keys():
-            datetime_objs.append(self.users[date].getDataNascimento)
-        datetime_objs.sort(reverse=False)
-        return datetime_objs
+            my_datetime = datetime.datetime.strptime(self.users[date].getDataNascimento(), "%d/%m/%Y")
+            datetime_objs.append(my_datetime)
+        datetime_objs.sort(reverse=True)
+
+        lista=[]
+        cadastros = len(self.users) 
+
+        for i in range (0, cadastros):#ordenado 
+            for j in self.users.keys():#array de cadastro
+                if(datetime_objs[i]==datetime.datetime.strptime(self.users[j].getDataNascimento(), "%d/%m/%Y")): #De acordo com as datas cria-se uma lista com logins
+                    print(self.users[j].getLogin())
+                    lista.append(self.users[j].getLogin())
+        return lista
+
