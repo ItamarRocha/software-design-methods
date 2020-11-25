@@ -2,11 +2,11 @@ from ..model.data import Data
 
 class User:
 
-    def __init__(self, login, password,dataNascimento):
+    def __init__(self, login, password, dataNascimento):
         self.__data = Data(dataNascimento)
         self.__login = login
         self.__password = password
-        self.__dataNascimento =self.__data.converteData(dataNascimento)
+        self.__dataNascimento = self.__data.getDMY()
         
     
     def getLogin(self):
@@ -25,7 +25,7 @@ class User:
         self.__password = password
 
     def setDataNascimento(self,dataNascimento ):
-        self.__dataNascimento = self.__data.converteData(dataNascimento)
+        self.__dataNascimento = dataNascimento
 
     
     
