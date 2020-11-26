@@ -1,15 +1,15 @@
-from ...model.user import User
+from business.model.fabrica_user import FabricaUser
 from ..exceptions.LoginException import LoginException
 from ..exceptions.PasswordException import PasswordException
 from ..exceptions.DeleteException import DeleteException
-from infra.src.user_persistence import UserPersistence
+from infra.src.fabrica_persistence import FabricaPersistence
 import re
 import datetime
 
 class Manager:
     def __init__(self, users = None):
-
-        self.persistence = UserPersistence("data/users")
+        fabrica_persistence = FabricaPersistence()                      #fabrica user_persistence
+        self.persistence = fabrica_persistence.criarPersistence("data/users")    
 
         if users == None:
             self.users = {}
@@ -54,7 +54,8 @@ class Manager:
             raise PasswordException("Campo de senha deve conter no mínimo 2 números")
 
         if error == False:
-            self.users[login] = User(login, password, dataNascimento)
+            fabrica_user = FabricaUser()                        #fabrica User
+            self.users[login] = fabrica_user.criaUser(login, password, dataNascimento)      
             self.persistence.save(self.users)
 
         return error
@@ -79,18 +80,19 @@ class Manager:
 
     def list_by_birth(self):
         datetime_objs = []
-        for date in self.users.keys():
-            my_datetime = datetime.datetime.strptime(self.users[date].getDataNascimento(), "%d/%m/%Y")
+        logins = []
+        for i in self.users.keys():
+            my_datetime = datetime.datetime.strptime(self.users[i].getDataNascimento(), "%d/%m/%Y")
             datetime_objs.append(my_datetime)
+            logins.append(i)
         datetime_objs.sort(reverse=True)
 
         lista=[]
-        cadastros = len(self.users) 
 
-        for i in range (0, cadastros):#ordenado 
-            for j in self.users.keys():#array de cadastro
-                if(datetime_objs[i]==datetime.datetime.strptime(self.users[j].getDataNascimento(), "%d/%m/%Y")): #De acordo com as datas cria-se uma lista com logins
-                    print(self.users[j].getLogin())
-                    lista.append(self.users[j].getLogin())
+        for i in datetime_objs:#ordenado 
+            for j in logins:#array de cadastro
+                if(i==datetime.datetime.strptime(self.users[j].getDataNascimento(), "%d/%m/%Y")): #De acordo com as datas cria-se uma lista com logins
+                    lista.append(j)
+                    logins.remove(j)
         return lista
 
