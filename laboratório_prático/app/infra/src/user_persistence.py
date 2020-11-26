@@ -1,4 +1,4 @@
-from business.model.user import User
+from business.model.fabrica_user import FabricaUser
 from ..exceptions.SaveException import SaveException
 from ..exceptions.LoadException import LoadException
 
@@ -33,7 +33,8 @@ class UserPersistence:
             with open(self.path, "rb") as f:
                 for line in f:
                     user_data = line.decode(self.encoding).split("\t")
-                    users[user_data[0]] = User(user_data[0], user_data[1][:-1])
+                    fabrica_user = FabricaUser()                        #fabrica User
+                    users[user_data[0]] = fabrica_user.criaUser(user_data[0], user_data[1], user_data[2][:-1])     
         except:
             raise LoadException('Erro: Não conseguiu carregar a lista de usuários')
         
