@@ -206,29 +206,3 @@ class View:
         else:
 
             st.error("Você não está logado!")
-    def main_menu(self):
-        st.title("Trabalho 1 MPS")
-
-        choice = st.sidebar.selectbox("Menu", self.options, index=0)
-
-        if choice == "Landing":
-            
-            self.landing_page()
-
-        elif choice == "Login":
-            
-            if self.login_page():
-                st.write("Você logou com sucesso!\nVá para a barra lateral para acessar outras configurações!")
-
-        elif choice == "Register":
-            
-            self.register_page()
-
-        elif choice == "Lista de membros":
-
-                self.member_list_page()
-
-        elif choice == "User page":
-
-            if self.user_page():
-                st.write("Você saiu do nosso sistema!\nVá para a barra lateral para acessar outras configurações!")
