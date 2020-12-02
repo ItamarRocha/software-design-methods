@@ -1,4 +1,5 @@
 from business.model.fabrica_user import FabricaUser
+from ..exceptions.BirthException import BirthException
 from ..exceptions.LoginException import LoginException
 from ..exceptions.PasswordException import PasswordException
 from ..exceptions.DeleteException import DeleteException
@@ -6,7 +7,7 @@ from infra.src.fabrica_persistence import FabricaPersistence
 import re
 import datetime
 
-class Manager:
+class UserManager:
     def __init__(self, users = None):
         fabrica_persistence = FabricaPersistence()                      #fabrica user_persistence
         self.persistence = fabrica_persistence.criarPersistence("data/users")    
@@ -53,12 +54,41 @@ class Manager:
             error = True
             raise PasswordException("Campo de senha deve conter no mínimo 2 números")
 
+        try:
+            datetime.datetime.strptime(dataNascimento, "%d/%m/%Y")
+        except:
+            error = True
+            raise BirthException("Formato de data incorreto. Por favor, insira dd/mm/aaaa")
+
         if error == False:
             fabrica_user = FabricaUser()                        #fabrica User
             self.users[login] = fabrica_user.criaUser(login, password, dataNascimento)      
             self.persistence.save(self.users)
-
+        
         return error
+
+    def update(self,login, update, new):
+
+        try:
+
+            if update == 'senha':
+
+                if(len(new) < 8):
+                    raise PasswordException("Campo de senha deve ter no mínimo 8 caracteres")
+
+                if(len(new) > 12):
+                    raise PasswordException("Campo de senha deve ter no máximo 12 caracteres")
+
+                self.users[login].setPassword(new)
+
+            elif update == 'dataNascimento':
+
+                self.users[login].setDataNascimento(new)
+
+                
+        except Exception as e:
+
+            print(e)
 
 
     def remove(self, login):
