@@ -26,7 +26,7 @@ class SuperUser:
     def getPassword(self):
         return self.__password
 
-    def getDataNascimento(self):
+    def getEmployerID(self):
         return self.__employerID
 
     def setLogin(self,login):
