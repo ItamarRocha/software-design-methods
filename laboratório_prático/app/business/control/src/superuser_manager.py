@@ -3,6 +3,7 @@ from ..exceptions.LoginException import LoginException
 from ..exceptions.PasswordException import PasswordException
 from ..exceptions.DeleteException import DeleteException
 from business.model.superuser import SuperUser
+import re
 
 
 class SuperUserManager():
@@ -26,7 +27,7 @@ class SuperUserManager():
             raise LoginException("Campo login não pode ter números")
        
     
-        if(login in self.users):
+        if(login in self.superusers):
             error = True
             raise LoginException("Usuário Existente")
 
