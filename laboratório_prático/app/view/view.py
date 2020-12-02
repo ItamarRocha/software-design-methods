@@ -1,13 +1,13 @@
 import streamlit as st
 from PIL import Image
-from business.control.src.manager import Manager
+from business.control.src.manager import UserManager
 from business.model.user import User
 import time
 
 @st.cache(allow_output_mutation=True)
 class View:
     def __init__(self):
-        self.manager = Manager(users=1)
+        self.manager = UserManager(users=1)
         self.logged = False
         self.options = ["Landing", "Login", "Register", "User page", "Lista de membros"]
 
