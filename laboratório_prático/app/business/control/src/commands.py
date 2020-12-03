@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from business.model.user import User
 from business.model.empreendimento import Empreendimento
+import time
 
 class Command(ABC):
     @abstractmethod
@@ -45,7 +46,19 @@ class Client:
     
 class Invoker:
     def __init__(self):
-        pass
+        self._commands = {}
+        self._history = {}
+
+    @property
+    def history(self):
+        return self._history
+
+    def register(self, command_name, command):
+        self._commands[command_name] = command
+
+    def execute(self, command_name):
+        self._history.append((time.time(), command_name))
+        self._commands[command_name].executar()
     
 class Receiver:
     def __init__(self):

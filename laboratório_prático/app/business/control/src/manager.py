@@ -1,4 +1,5 @@
 from business.model.fabrica_user import FabricaUser
+from business.model.empreendimento import Empreendimento
 from ..exceptions.BirthException import BirthException
 from ..exceptions.LoginException import LoginException
 from ..exceptions.PasswordException import PasswordException
@@ -125,4 +126,5 @@ class UserManager:
                     lista.append(j)
                     logins.remove(j)
         return lista
+
 
