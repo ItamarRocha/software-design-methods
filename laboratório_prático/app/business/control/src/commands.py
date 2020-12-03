@@ -25,12 +25,19 @@ class attEmpreendimento(Command):     #ConcreteCommand
     def __init__(self, empreendimento):
         super().__init__()
         self.__empreendimento = empreendimento
-    def executar(self):
+    def executar(self, nome, descricao, local, categoria, link_ig, link_whats, link_fbk):
+        self.__user.setEmpreendimento(self, nome, descricao, local, categoria, link_ig, link_whats, link_fbk)
         
 
 class searchEmpreendimento(Command):     #ConcreteCommand
-    def __init__(self):
+    def __init__(self, users):
         super().__init__()
+        self.__users = users
+    def executar(self):
+        lista = []
+        for i in self.__users:
+            lista.append(i.Empreendimento.nome)
+        return lista
     
 class Client:
     def __init__(self):
