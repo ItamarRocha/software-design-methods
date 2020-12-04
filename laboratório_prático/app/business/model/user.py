@@ -3,7 +3,7 @@ from ..model.empreendimento import Empreendimento
 
 class User:
 
-    def __init__(self, login, password, dataNascimento, empreendimento=Empreendimento()):
+    def __init__(self, login: str = "", password: str = "", dataNascimento: str = "", empreendimento=Empreendimento()):
         self.__data = Data(dataNascimento)
         self.__login = login
         self.__password = password
