@@ -1,7 +1,10 @@
 import streamlit as st
 from PIL import Image
 from business.control.src.manager import UserManager
+from business.control.src.commands import Client
 from business.model.user import User
+from business.model.fabrica_user import FabricaUser
+from business.model.empreendimento import Empreendimento
 import time
 
 @st.cache(allow_output_mutation=True)
@@ -10,6 +13,7 @@ class View:
         self.manager = UserManager(users=1)
         self.logged = False
         self.options = ["Landing", "Login", "Register", "User page", "Lista de membros"]
+        self.client = Client(FabricaUser().criaUser(), Empreendimento()) # Client(user, empreendimento)
 
     def landing_page(self):
 
@@ -98,6 +102,8 @@ class View:
                             
                             self.logged = True
 
+                            self.client = Client(self.manager.users[user], self.manager.users[user].empreendimento)
+
                             placeholder.empty()
 
                             return True
@@ -152,6 +158,35 @@ class View:
             
                 st.write(f"Bem vindo(a) {self.user}. Suas opções estão abaixo!")
 
+                st.write(f"Deseja cadastrar um empreendimento seu?")
+
+                #if st.button("cadastrar empreendimento"):
+
+                nome = st.text_input("Digite o nome do negócio")
+                descricao = st.text_input("Descreva seu negócio")
+                local = st.text_input("Local")
+                categoria = st.text_input("Categoria")
+                link_ig = st.text_input("Link para contato via instagram")
+                link_whats = st.text_input("Link para contato via whatsapp")
+                link_fbk = st.text_input("Link para contato via facebook")
+
+                if st.button("Cadastrar"):
+
+                    empreendimento = Empreendimento(nome, descricao, local, categoria, link_ig, link_whats, link_fbk)
+                    self.client = Client(self.manager.users[self.user], empreendimento)
+                    self.client.getDict()[self.user] = empreendimento
+
+                    try:
+                        error = self.client.adicionarEmpreendimentos()
+
+                    except Exception as e:
+                        error = True
+                        st.warning(e)
+
+                        
+                    if error == False:
+                        st.success("Você criou seu empreendimento!")
+
                 if st.button("Quero deslogar"):
                     
                     st.warning("Você deslogou!")
@@ -182,11 +217,21 @@ class View:
         return False
 
     def member_list_page(self):
-        st.subheader("Lista de membros")
+        st.subheader("Lista de membros e empreendimentos")
+
+        if st.button("Ver lista de empreendimentos", 1):
+            lista = self.client.pesquisarEmpreendimentos()
+            if(len(lista)):
+                for i in lista:
+                    string = lista[i].getNome() + "\t" + lista[i].getDescricao() + "\t" + lista[i].getLocal() + "\t" + lista[i].getCategoria() + "\t" + lista[i].getDescricao() + "\t" + lista[i].getLink_ig() + "\t" + lista[i].getLink_whats() + "\t" + lista[i].getLink_fbk()
+                    st.markdown(string)
+            else:
+                st.error("Nenhum empreendimento encontrado")
+
         
         if self.logged:
         
-            if st.button("Por ordem alfabética", 1):
+            if st.button("Por ordem alfabética", 2):
         
                 list = self.manager.list_by_alphabet()
                 if(len(list)):
@@ -195,7 +240,7 @@ class View:
                 else:
                     st.error("Nenhum membro encontrado")
         
-            if st.button("Data de nascimento", 2):
+            if st.button("Data de nascimento", 3):
                 list = self.manager.list_by_birth()
                 if(len(list)):
                     for i in list:
@@ -205,4 +250,4 @@ class View:
         
         else:
 
-            st.error("Você não está logado!")
+            st.error("Logue para ver a lista de membros")
