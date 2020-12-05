@@ -26,7 +26,7 @@ class AddEmpreendimento(Command):     #ConcreteCommand
                                       self.__empreendimento.getLink_fbk())
         
         self.__dict[self.__user.getLogin()] = self.__user.getEmpreendimento
-        
+
         path = "data/empreendimentos"
         encoding = "utf-8"
         try:
@@ -56,9 +56,9 @@ class AddEmpreendimento(Command):     #ConcreteCommand
                     f.write(empreendimento.getLink_fbk().encode(encoding))
                     f.write("\n".encode(encoding))
 
-        except:
+        except SaveException as e:
 
-            raise SaveException('Erro: Não conseguiu salvar a lista de empreendimentos')
+            raise SaveException(f'Erro: Não conseguiu salvar a lista de empreendimentos devido a {e}')
 
 class AttEmpreendimento(Command):     #ConcreteCommand
     def __init__(self, user, empreendimento, dicts):
@@ -82,12 +82,15 @@ class SearchEmpreendimento(Command):     #ConcreteCommand
         path = "data/empreendimentos"
         encoding = "utf-8"
         try:
+
             with open(path, "rb") as f:
                 for line in f:
                     empree_data = line.decode(encoding).split("\t")
                     empree[empree_data[0]] = Empreendimento(empree_data[1],empree_data[2],empree_data[3],empree_data[4],empree_data[5],empree_data[6], empree_data[7][:-1])     
-        except:
-            raise LoadException('Erro: Não conseguiu carregar a lista de empreendimentos')
+        
+        except Exception as e:
+            #raise Exception(f'Erro: Não conseguiu carregar a lista de empreendimentos\n{e}')
+            raise LoadException(f'Error: Não conseguiu carregar a lista de empreendimentos devido: {e}')
         
         return empree
 
