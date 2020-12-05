@@ -24,7 +24,9 @@ class AddEmpreendimento(Command):     #ConcreteCommand
                                       self.__empreendimento.getLink_ig(),
                                       self.__empreendimento.getLink_whats(),
                                       self.__empreendimento.getLink_fbk())
-
+        
+        self.__dict[self.__user.getLogin()] = self.__user.getEmpreendimento
+        
         path = "data/empreendimentos"
         encoding = "utf-8"
         try:
@@ -59,13 +61,14 @@ class AddEmpreendimento(Command):     #ConcreteCommand
             raise SaveException('Erro: Não conseguiu salvar a lista de empreendimentos')
 
 class AttEmpreendimento(Command):     #ConcreteCommand
-    def __init__(self, user, empreendimento):
+    def __init__(self, user, empreendimento, dicts):
         super().__init__()
         self.__user = User(user)
         self.__empreendimento = Empreendimento(empreendimento)
+        self.__dict = dicts
     def executar(self):
         #deletar
-        coma = AddEmpreendimento(self.__user, self.__empreendimento)
+        coma = AddEmpreendimento(self.__user, self.__empreendimento, self.__dict)
         coma.executar()
         
 
@@ -86,7 +89,7 @@ class SearchEmpreendimento(Command):     #ConcreteCommand
         except:
             raise LoadException('Erro: Não conseguiu carregar a lista de empreendimentos')
         
-        return empree     #receiver ???????????
+        return empree
 
 class Invoker:
     def __init__(self, comando):
