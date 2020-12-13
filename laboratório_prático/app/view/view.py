@@ -1,3 +1,5 @@
+from business.control.src.proxy import Proxy
+from pkg_resources import cleanup_resources
 import streamlit as st
 from PIL import Image
 from business.control.src.manager import UserManager
@@ -173,11 +175,17 @@ class View:
                 if st.button("Cadastrar"):
 
                     empreendimento = Empreendimento(nome, descricao, local, categoria, link_ig, link_whats, link_fbk)
+
                     self.client = Client(self.manager.users[self.user], empreendimento)
-                    self.client.getDict()[self.user] = empreendimento
+                    prototipo = self.client.clonar()
+
+                    dicts = prototipo.getDict()
+                    dicts[self.user] = empreendimento
+                    prototipo.setDict(dicts)
+
 
                     try:
-                        error = self.client.adicionarEmpreendimentos()
+                        error = prototipo.adicionarEmpreendimentos()
 
                     except Exception as e:
                         error = True
@@ -186,6 +194,8 @@ class View:
                         
                     if error == False:
                         st.success("Você criou seu empreendimento!")
+
+                    self.client = prototipo.clonar()
 
                 if st.button("Quero deslogar"):
                     
@@ -229,25 +239,85 @@ class View:
                 st.error("Nenhum empreendimento encontrado")
 
         
-        if self.logged:
         
-            if st.button("Por ordem alfabética", 2):
-        
-                list = self.manager.list_by_alphabet()
-                if(len(list)):
-                    for i in list:
-                        st.markdown(i)
-                else:
-                    st.error("Nenhum membro encontrado")
-        
-            if st.button("Data de nascimento", 3):
-                list = self.manager.list_by_birth()
-                if(len(list)):
-                    for i in list:
-                        st.markdown(i)
-                else:
-                    st.error("Nenhum membro encontrado")
-        
-        else:
+        if st.button("Por ordem alfabética", 2):
+            proxy = Proxy(self.logged, self.manager.users)
+            proxy.list_by_alphabet()
 
-            st.error("Logue para ver a lista de membros")
+            
+        
+        if st.button("Data de nascimento", 3):
+            proxy = Proxy(self.logged, self.manager.users)
+            proxy.list_by_birth()
+
+       
+
+
+
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        
+        
+          
