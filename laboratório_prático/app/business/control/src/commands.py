@@ -3,6 +3,8 @@ from business.model.user import User
 from business.model.empreendimento import Empreendimento
 from ..exceptions.SaveException import SaveException
 from ..exceptions.LoadException import LoadException
+from ..src.prototype import Prototype
+
 import time
 
 class Command(ABC):
@@ -25,7 +27,7 @@ class AddEmpreendimento(Command):     #ConcreteCommand
                                       self.__empreendimento.getLink_whats(),
                                       self.__empreendimento.getLink_fbk())
         
-        self.__dict[self.__user.getLogin()] = self.__user.getEmpreendimento
+        self.__dict[self.__user.getLogin()] = self.__empreendimento
 
         path = "data/empreendimentos"
         encoding = "utf-8"
@@ -34,7 +36,7 @@ class AddEmpreendimento(Command):     #ConcreteCommand
                 for login, empreendimento in self.__dict.items():
                     f.write(login.encode(encoding))
                     f.write("\t".encode(encoding))
-
+                 
                     f.write(empreendimento.getNome().encode(encoding))
                     f.write("\t".encode(encoding))
 
@@ -108,7 +110,7 @@ class Invoker:
     def execute(self):
         return self.__comando.executar()
 
-class Client:
+class Client(Prototype):
     def __init__(self, user, empreendimento):    
         self.__user = user
         self.__empreendimento = empreendimento
@@ -129,5 +131,7 @@ class Client:
         invoker = Invoker(AddEmpreendimento(self.__user, self.__empreendimento, self.__dict)) #invoker = Invoker(command)
         invoker.execute()
 
+    def clonar(self):
+        return Client(self.__user, self.__empreendimento)
 
     

@@ -1,3 +1,4 @@
+from typing import AbstractSet
 from business.model.fabrica_user import FabricaUser
 from business.model.empreendimento import Empreendimento
 from ..exceptions.BirthException import BirthException
@@ -7,6 +8,7 @@ from ..exceptions.DeleteException import DeleteException
 from infra.src.fabrica_persistence import FabricaPersistence
 import re
 import datetime
+from abc import ABC, abstractmethod
 
 class UserManager:
     def __init__(self, users = None):
@@ -103,28 +105,13 @@ class UserManager:
 
         self.persistence.save(self.users)        
 
-
+    @abstractmethod
     def list_by_alphabet(self):
-        list = []
-        list= sorted(self.users.keys(), key=str.lower)
-        return list
+        pass
+    
 
+    @abstractmethod
     def list_by_birth(self):
-        datetime_objs = []
-        logins = []
-        for i in self.users.keys():
-            my_datetime = datetime.datetime.strptime(self.users[i].getDataNascimento(), "%d/%m/%Y")
-            datetime_objs.append(my_datetime)
-            logins.append(i)
-        datetime_objs.sort(reverse=True)
-
-        lista=[]
-
-        for i in datetime_objs:#ordenado 
-            for j in logins:#array de cadastro
-                if(i==datetime.datetime.strptime(self.users[j].getDataNascimento(), "%d/%m/%Y")): #De acordo com as datas cria-se uma lista com logins
-                    lista.append(j)
-                    logins.remove(j)
-        return lista
+        pass
 
 
