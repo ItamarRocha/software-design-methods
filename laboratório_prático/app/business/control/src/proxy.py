@@ -8,7 +8,7 @@ class Proxy(UserManager):
         self.__logged = logged
         self.users = users
 
-    def list_by_alphabet(self):
+    def list_by_alphabet(self): #Ordena pelo alfabeto
         if self.__logged:
             list = []
             list= sorted(self.users.keys(), key=str.lower)
@@ -20,7 +20,7 @@ class Proxy(UserManager):
         else:
             st.error("Logue para ver a lista de membros")
 
-    def list_by_birth(self):
+    def list_by_birth(self): #Lista pelo aniversário
         if self.__logged:
             datetime_objs = []
             logins = []
