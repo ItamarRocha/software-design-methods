@@ -17,7 +17,7 @@ class View:
         self.options = ["Landing", "Login", "Register", "User page", "Lista de membros"]
         self.client = Client(FabricaUser().criaUser(), Empreendimento()) # Client(user, empreendimento)
 
-    def landing_page(self):
+    def landing_page(self):      #Função da landing page
 
         st.markdown(r"""
                         ### Bem-vindx!

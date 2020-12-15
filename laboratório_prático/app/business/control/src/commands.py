@@ -8,7 +8,7 @@ from ..src.prototype import Prototype
 import time
 
 class Command(ABC):
-    @abstractmethod
+    @abstractmethod   #metodo abstrato
     def executar(self, user, empreendimento) -> None:
         pass
 

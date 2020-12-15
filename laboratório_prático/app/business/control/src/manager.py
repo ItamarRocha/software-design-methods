@@ -70,7 +70,7 @@ class UserManager:
         
         return error
 
-    def update(self,login, update, new):
+    def update(self,login, update, new):   #atualizar
 
         try:
 
@@ -94,7 +94,7 @@ class UserManager:
             print(e)
 
 
-    def remove(self, login):
+    def remove(self, login):  #remover
 
         try:
 
