@@ -20,7 +20,7 @@ class UserManager:
         else:
             self.users = self.persistence.load()
 
-    def add(self, login, password, dataNascimento):
+    def add(self, login, password, dataNascimento): #Adiciona usuário
         error =  False
 
         if(re.search("\d", login)):
