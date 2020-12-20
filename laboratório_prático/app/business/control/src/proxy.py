@@ -8,19 +8,19 @@ class Proxy(UserManager):
         self.__logged = logged
         self.users = users
 
-    def list_by_alphabet(self): #Ordena pelo alfabeto
+    def list_by_alphabet(self):
         if self.__logged:
-            list = []
-            list= sorted(self.users.keys(), key=str.lower)
-            if(len(list)):
-                for i in list:
+            lista = []
+            lista= sorted(self.users.keys(), key=str.lower)
+            if(len(lista)):
+                for i in lista:
                     st.markdown(i)
             else:
                 st.error("Nenhum membro encontrado")
         else:
             st.error("Logue para ver a lista de membros")
 
-    def list_by_birth(self): #Lista pelo aniversário
+    def list_by_birth(self):
         if self.__logged:
             datetime_objs = []
             logins = []
@@ -37,8 +37,8 @@ class Proxy(UserManager):
                     if(i==datetime.datetime.strptime(self.users[j].getDataNascimento(), "%d/%m/%Y")): #De acordo com as datas cria-se uma lista com logins
                         lista.append(j)
                         logins.remove(j)
-            if(len(list)):
-                for i in list:
+            if(len(lista)):
+                for i in lista:
                     st.markdown(i)
             else:
                 st.error("Nenhum membro encontrado")
